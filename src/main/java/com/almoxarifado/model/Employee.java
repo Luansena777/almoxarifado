@@ -7,23 +7,21 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "products")
+@Table(name = "employees")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Product {
+public class Employee {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, unique = true)
-    private String code;
-
     @Column(nullable = false, length = 100)
     private String name;
 
-    @Column(nullable = false)
-    private Integer quantity;
+    @Column(nullable = false, length = 100)
+    private String department;
+
 
 }

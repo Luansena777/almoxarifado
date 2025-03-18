@@ -6,7 +6,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/products")
@@ -28,7 +27,6 @@ public class ProductController {
         return productService.findById(id)
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
-
     }
 
     @PostMapping
@@ -52,8 +50,4 @@ public class ProductController {
         return ResponseEntity.notFound().build();
     }
 
-    @GetMapping("/highestPrice{price}")
-    public List<Product> highestPrice(@PathVariable Double price) {
-        return productService.findByPriceGreaterThan(price);
-    }
 }
