@@ -1,5 +1,6 @@
 package com.almoxarifado.model;
 
+<<<<<<< HEAD
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -15,10 +16,26 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Table(name = "Employees")
 public class Employee {
+=======
+
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Entity
+@Table(name = "employees")
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class Employee {
+
+>>>>>>> origin
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+<<<<<<< HEAD
     @Column(nullable = false, unique = true)
     private String registration;
 
@@ -44,4 +61,13 @@ public class Employee {
         updatedAt = LocalDateTime.now();
 
     }
+=======
+    @Column(nullable = false, length = 100)
+    private String name;
+
+    @Column(nullable = false, length = 100)
+    private String department;
+
+
+>>>>>>> origin
 }

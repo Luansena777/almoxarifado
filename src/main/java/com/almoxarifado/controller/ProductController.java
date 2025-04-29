@@ -23,10 +23,18 @@ public class ProductController {
         return ResponseEntity.ok(productService.showProducts());
     }
 
+<<<<<<< HEAD
     @GetMapping("/{code}")
     public ResponseEntity<Product> findByCode(@PathVariable String code) {
             Product product = productService.findByCode(code);
             return ResponseEntity.ok(product);
+=======
+    @GetMapping("/{id}")
+    public ResponseEntity<Product> findById(@PathVariable Long id) {
+        return productService.findById(id)
+                .map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
+>>>>>>> origin
     }
 
     @PostMapping

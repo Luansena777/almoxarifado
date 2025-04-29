@@ -1,5 +1,6 @@
 package com.almoxarifado.service;
 
+<<<<<<< HEAD
 import com.almoxarifado.dto.EmployeeDTO;
 import com.almoxarifado.exception.DuplicateRegistrationException;
 import com.almoxarifado.exception.EmployeeNotFoundException;
@@ -77,4 +78,29 @@ public class EmployeeService {
         }
         employeeRepository.delete(findByRegistration(registration));
     }
+=======
+import com.almoxarifado.model.Employee;
+import com.almoxarifado.repository.EmployeeRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+public class EmployeeService {
+    private final EmployeeRepository employeeRepository;
+
+    public EmployeeService(EmployeeRepository employeeRepository) {
+        this.employeeRepository = employeeRepository;
+    }
+
+
+    public List<Employee> showEmployees() {
+        return employeeRepository.findAll();
+    }
+
+
+
+
+>>>>>>> origin
 }
