@@ -1,59 +1,49 @@
 package com.almoxarifado.controller;
 
+import com.almoxarifado.dto.ProductDTO;
+import com.almoxarifado.exception.ProductNotFoundException;
 import com.almoxarifado.model.Product;
 import com.almoxarifado.service.ProductService;
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
-@RequestMapping("/products")
+@RequiredArgsConstructor
+@RequestMapping("/api/products")
 public class ProductController {
-
     private final ProductService productService;
 
-    public ProductController(ProductService productService) {
-        this.productService = productService;
-    }
-
     @GetMapping
-    public List<Product> showProducts() {
-        return productService.showProducts();
+    public ResponseEntity<List<ProductDTO>> showProducts() {
+        return ResponseEntity.ok(productService.showProducts());
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Product> findById(@PathVariable Long id) {
-        return productService.findById(id)
-                .map(ResponseEntity::ok)
-                .orElseGet(() -> ResponseEntity.notFound().build());
-
+    @GetMapping("/{code}")
+    public ResponseEntity<Product> findByCode(@PathVariable String code) {
+            Product product = productService.findByCode(code);
+            return ResponseEntity.ok(product);
     }
 
     @PostMapping
-    public Product addProduct(@RequestBody Product product) {
-        return productService.saveProduct(product);
+    public ResponseEntity<ProductDTO> createProduct(@RequestBody ProductDTO productDTO) {
+        return ResponseEntity.ok(productService.createProduct(productDTO));
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Product> updateProduct(@PathVariable Long id, @RequestBody Product updatedProduct) {
-        Product productOptional = productService.updateProduct(id, updatedProduct);
-        return ResponseEntity.ok(updatedProduct);
-
+    @PutMapping("/{code}")
+    public ResponseEntity<Void> updateProduct(@PathVariable String code, @Valid @RequestBody ProductDTO updatedProduct) {
+        productService.updateProduct(code, updatedProduct);
+        return ResponseEntity.noContent().build();
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteProduct(@PathVariable Long id) {
-        if (productService.findById(id).isPresent()) {
-            productService.deleteProduct(id);
-            return ResponseEntity.noContent().build();
-        }
-        return ResponseEntity.notFound().build();
+    @DeleteMapping("/{code}")
+    public ResponseEntity<Void> deleteProduct(@PathVariable String code) {
+        productService.deleteProduct(code);
+        return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("/highestPrice{price}")
-    public List<Product> highestPrice(@PathVariable Double price) {
-        return productService.findByPriceGreaterThan(price);
-    }
 }
