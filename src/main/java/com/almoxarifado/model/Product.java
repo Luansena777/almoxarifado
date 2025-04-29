@@ -7,15 +7,10 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-<<<<<<< HEAD
 import java.time.LocalDateTime;
 
 @Builder
 @Entity
-=======
-@Entity
-@Table(name = "products")
->>>>>>> origin
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -26,22 +21,14 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-<<<<<<< HEAD
     @Column(unique = true, nullable = false)
     private String code;
 
-    @Column(nullable = false)
-=======
-    @Column(nullable = false, unique = true)
-    private String code;
-
     @Column(nullable = false, length = 100)
->>>>>>> origin
     private String name;
 
     @Column(nullable = false)
     private Integer quantity;
-<<<<<<< HEAD
 
     private String category;
 
@@ -63,9 +50,6 @@ public class Product {
     protected void onUpdate() {
         updatedAt = LocalDateTime.now();
     }
-
-=======
->>>>>>> origin
 
 }
 

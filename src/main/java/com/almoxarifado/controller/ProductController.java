@@ -1,12 +1,10 @@
 package com.almoxarifado.controller;
 
 import com.almoxarifado.dto.ProductDTO;
-import com.almoxarifado.exception.ProductNotFoundException;
 import com.almoxarifado.model.Product;
 import com.almoxarifado.service.ProductService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,18 +21,10 @@ public class ProductController {
         return ResponseEntity.ok(productService.showProducts());
     }
 
-<<<<<<< HEAD
     @GetMapping("/{code}")
     public ResponseEntity<Product> findByCode(@PathVariable String code) {
-            Product product = productService.findByCode(code);
-            return ResponseEntity.ok(product);
-=======
-    @GetMapping("/{id}")
-    public ResponseEntity<Product> findById(@PathVariable Long id) {
-        return productService.findById(id)
-                .map(ResponseEntity::ok)
-                .orElseGet(() -> ResponseEntity.notFound().build());
->>>>>>> origin
+        Product product = productService.findByCode(code);
+        return ResponseEntity.ok(product);
     }
 
     @PostMapping
@@ -43,7 +33,8 @@ public class ProductController {
     }
 
     @PutMapping("/{code}")
-    public ResponseEntity<Void> updateProduct(@PathVariable String code, @Valid @RequestBody ProductDTO updatedProduct) {
+    public ResponseEntity<Void> updateProduct(@PathVariable String code, @Valid @RequestBody ProductDTO
+            updatedProduct) {
         productService.updateProduct(code, updatedProduct);
         return ResponseEntity.noContent().build();
     }
